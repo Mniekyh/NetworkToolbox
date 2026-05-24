@@ -1,0 +1,7 @@
+
+#just to test hosts
+8.8.8.8         google-dns
+1.1.1.1         cloudflare-dns
+192.168.1.1     router
+192.168.99.99   someRandomHost
+google.com      google
