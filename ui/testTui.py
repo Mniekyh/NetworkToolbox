@@ -14,7 +14,8 @@ class Stopwatch(HorizontalGroup):
         yield Button ("Reset", id="reset")
         yield TimeDisplay("00:00:00.00")
 class StopwatchApp(App):
-
+#class for managing stopwatches
+    CSS_PATH = "stopwatch03.tcss"
     BINDINGS = [("d", "toggle_dark", "Toggle dark mode")]
 
     def compose(self) -> ComposeResult:

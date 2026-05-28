@@ -1,5 +1,3 @@
-print("Heloł")
-
 #import packages
 from dataclasses import dataclass, field
 from pathlib import Path

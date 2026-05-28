@@ -1,5 +1,6 @@
 
 #just to test hosts
+google.com      google
 8.8.8.8         google-dns
 1.1.1.1         cloudflare-dns
 192.168.1.1     router
