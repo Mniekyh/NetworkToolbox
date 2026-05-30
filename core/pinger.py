@@ -29,7 +29,7 @@ def ping_host(host:Host): # function to check connection
     # noConnectioun
         #print(f"DEBUG stderr: '{result.stderr}'")
        #print(f"DEBUG stdout: '{result.stdout}'")
-        return [Ping(
+        return [Ping( #set all values to 0, and fill error cell with error code
         destination=host.address,
         ttl=0,
         time=0.0,
@@ -45,11 +45,11 @@ def ping_host(host:Host): # function to check connection
     receivedPackets = 0
     percentOfLossPackets = 0
   
-    for line in lines:
-        if "from" in line:
+    for line in lines: #go through list of lines
+        if "from" in line: 
             parts = line.split()
             destination = host.address
-            ttl = 0
+            ttl = 0 #in case of problems, set it to 0
             time = 0.0
             for part in parts:
                 if part.startswith("ttl="):
@@ -60,16 +60,16 @@ def ping_host(host:Host): # function to check connection
                 destination=destination,
                 ttl=ttl,
                 time=time,
-                transmitedPackets=0,
+                transmitedPackets=0, #just to go through, as it needs to be filled
                 receivedPackets=0,
                 percentOfLossPackets=0
             ))
-        elif "transmitted" in line:
+        elif "transmitted" in line: #last 3 lines, which are resp for summarize
             parts = line.split()
             transmitedPackets = int(parts[0])
             receivedPackets = int(parts[3])
             percentOfLossPackets = int(parts[5][:-1])
-    # wpisz statystyki do każdego pinga
+    # show statistics
     for ping in pings:
         ping.transmitedPackets = transmitedPackets
         ping.receivedPackets = receivedPackets
@@ -77,7 +77,7 @@ def ping_host(host:Host): # function to check connection
 
     return pings
 
-def ping_all(hosts: list[Host]):
+def ping_all(hosts: list[Host]): #function to ping all hosts simult. with threadPoolExecutor, which creates subproccesses, no more than 50 hosts at the time
     with ThreadPoolExecutor(max_workers=min(len(hosts),50)) as executor: 
         result = dict(zip(hosts,executor.map(ping_host, hosts))) 
     return(result)
