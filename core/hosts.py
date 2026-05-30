@@ -5,7 +5,7 @@ import subprocess
 
 #Begin coding
 #Create class Host, which is responsible for one host from list
-@dataclass
+@dataclass(frozen=True)
 class Host:
  address: str #required address of host
  label: str = "" # nice to have label for this host, as it will give more info whose IP it is

@@ -1,14 +1,17 @@
 #import packages
 from core.hosts import load_hosts
 from core.pinger import ping_host
+from core.pinger import ping_all
 
 #Begin coding
 
 hosts = load_hosts("hosts.txt")
-for host in hosts:
+results = ping_all(hosts)
+    
+for host,pings in results.items():
+
     print(f"\n---- {host.display_name()}({host.address})----")
-    result = ping_host(host)
-    for p in result:
+    for p in pings:
         if p.error:
             print(f" | Connection impossible! Reason: {p.error}")
         else:

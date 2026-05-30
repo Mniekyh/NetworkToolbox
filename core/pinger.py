@@ -2,6 +2,7 @@
 from core.hosts import Host # from core/hosts take class Host
 import platform
 from dataclasses import dataclass 
+from concurrent.futures import ThreadPoolExecutor
 import subprocess
 @dataclass 
 class Ping: # create class for one ping
@@ -75,3 +76,8 @@ def ping_host(host:Host): # function to check connection
         ping.percentOfLossPackets = percentOfLossPackets
 
     return pings
+
+def ping_all(hosts: list[Host]):
+    with ThreadPoolExecutor(max_workers=min(len(hosts),50)) as executor: 
+        result = dict(zip(hosts,executor.map(ping_host, hosts))) 
+    return(result)
