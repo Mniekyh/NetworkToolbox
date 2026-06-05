@@ -10,7 +10,7 @@ results = ping_all(hosts) # ping all hosts from hosts.txt to check connection in
     
 for host,pings in results.items(): #handle dictionary which U got
 
-    print(f"\n---- {host.display_name()}({host.address})----" #Call name of pinged host
+    print(f"\n---- {host.display_name()}({host.address})----") #Call name of pinged host
     for p in pings:
         if p.error: #if U get no connection, highlight it, and tell what is the problem
             print(f" | Connection impossible! Reason: {p.error}")

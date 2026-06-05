@@ -1,0 +1,6 @@
+DataTable > .row--success {
+background:green;
+}
+DataTable > .row--error {
+background: red;
+}

@@ -4,6 +4,7 @@ from textual.containers import VerticalScroll, HorizontalGroup
 from textual.widgets import Button, Footer, Header, DataTable
 from textual import work
 #local
+from rich.text import Text
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -14,7 +15,7 @@ from core.pinger import ping_all
 
 
 class NetworkTool(App):
- #   CSS_PATH = "mainStyle.tcss"
+    CSS_PATH = "mainStyle.tcss"
     BINDINGS = [("d", "toggle_dark", "toggle_light")]
     hosts = []
     def __init__(self):
@@ -73,12 +74,15 @@ class NetworkTool(App):
                 table.update_cell(host.address, "TTL", "-")
                 table.update_cell(host.address, "Time", "-")
                 table.update_cell(host.address, "Loss", "100%")
+                table.update_cell(host.address, "Error", Text("ERROR", style="bold red"))
+
             else:
                 avg_time = sum(p.time for p in pings) / len(pings)
                 table.update_cell(host.address, "TTL", str(first.ttl))
                 table.update_cell(host.address, "Time", f"{avg_time:.1f}ms")
                 table.update_cell(host.address, "Loss", f"{first.percentOfLossPackets}%")
                 table.update_cell(host.address, "Error", "")
+                table.update_cell(host.address, "Error", Text("OK", style="bold green"))
 
 if __name__ == "__main__":
     app=NetworkTool()
